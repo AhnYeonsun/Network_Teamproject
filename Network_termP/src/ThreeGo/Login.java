@@ -23,6 +23,8 @@ public class Login extends JFrame {
 	JLabel login_label;
 	TextField txtNAME;
 	JButton ok, no;
+	
+	String name,ip;
 		
 	public Login()
 	{
@@ -90,10 +92,11 @@ public class Login extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				new Ready();
+				name = txtNAME.getText();
 			}
 
 		};
+		
 
 		no.addActionListener(listner);
 		ok.addActionListener(listner2);
@@ -102,7 +105,10 @@ public class Login extends JFrame {
 		revalidate();
 	}
 	
-	
+	public String namegetter()
+	{
+		return name;
+	}
 }
 
 //이미지 삽입하는 부분
@@ -115,4 +121,6 @@ class DrawPanel extends JPanel
 	}
 		
 }
+
+
 
