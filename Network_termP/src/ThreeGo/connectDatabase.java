@@ -3,6 +3,7 @@ package ThreeGo;
 import java.sql.*;
 import javax.net.ssl.SSLContext;
 import javax.*;
+
 public class connectDatabase {
 	public static int id;
 	public static String question;
