@@ -23,8 +23,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.metal.MetalBorders.ToolBarBorder;
 
 public class GameFrame extends JFrame {
-	
-	
+
+
 	JPanel Panel;
 	JPanel borderPanel1, borderPanel2;
 	JPanel BingoPanel1;
@@ -32,13 +32,13 @@ public class GameFrame extends JFrame {
 	TitledBorder border1 = new TitledBorder(new LineBorder(Color.black, 1)," 빙고게임 판 ");
 	TitledBorder border2 = new TitledBorder(new LineBorder(Color.black, 1)," 채팅 방 ");
 
-	
+
 	JPanel textFieldPanel;
 	JTextField textField = new JTextField(40); // 채팅 입력
 	JTextArea messageArea = new JTextArea(8, 40); // 채팅 출력
 	JScrollPane js = new JScrollPane(messageArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); // 채팅 출력 gui
-																	// 스크롤 기능추가
+	// 스크롤 기능추가
 	JButton btn1 = new JButton("Submit");
 	public GameFrame() {
 		// 창 설정 (Bingo Game 창)
@@ -67,8 +67,8 @@ public class GameFrame extends JFrame {
 		BingoPanel1.setLayout(null);
 		BingoPanel1.setBounds(20, 20, 430, 430);
 		// BingoPanel1.setBackground(Color.white);
-		
-		
+
+
 		//빙고판 버튼을 클릭할시 이벤트 발생
 		ActionListener Buttonlistner = new ActionListener() {
 
@@ -82,7 +82,7 @@ public class GameFrame extends JFrame {
 		// 빙고판(버튼 형식)
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				Bingo_B[j + i * 5] = new JButton(String.valueOf(j + i * 5));
+				Bingo_B[j + i * 5] = new JButton(String.valueOf(j + i * 5+1)); //
 				Bingo_B[j + i * 5].setLayout(null);
 				Bingo_B[j + i * 5].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5]);
@@ -126,8 +126,8 @@ public class GameFrame extends JFrame {
 		Panel.add(borderPanel1);
 		Panel.add(borderPanel2);
 		add(Panel);
-		
-		
+
+
 		revalidate();
 	}
 }
