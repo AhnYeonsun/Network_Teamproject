@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +20,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class Quiz extends JFrame {
+	public boolean bingo;
+	public static String temp = "aaaa";
 	
 	TitledBorder border1 = new TitledBorder(new LineBorder(Color.black, 1), " < 문제 1 > ");
 	TitledBorder border2 = new TitledBorder(new LineBorder(Color.black, 1), " < 답 제출 > ");
@@ -40,6 +44,8 @@ public class Quiz extends JFrame {
 		// 창 설정 (Ready창)
 		super("Quiz");
 
+		
+		
 		setPreferredSize(new Dimension(600 + 7, 440));
 		setResizable(false);
 		setLocation(800, 100);
@@ -65,7 +71,9 @@ public class Quiz extends JFrame {
 		ProblemPanel.setLayout(null);
 		ProblemPanel.setBounds(20, 20, 500, 215);
 		ProblemPanel.setBackground(Color.WHITE); // 패널을 구분하기 위해 임시적으로 넣어놨음
-
+		connectDatabase cD = new connectDatabase();
+		
+		
 		// 타이머 부부분
 		timer.setFont(new Font("한컴 윤체 B", Font.PLAIN, 13));
 		timer.setBounds(470, 270, 100, 30);
@@ -111,5 +119,26 @@ public class Quiz extends JFrame {
 
 		revalidate();
 
+	}
+	//bingo check
+	public void is_Bingo(int[][] array,int check){
+		for(int i=0;i<array.length;i++){
+			for(int j=0;j<=i;j++){
+				if(array[0][j]==check&&array[1][j]==check&&array[2][j]==check&&array[3][j]==check&&array[4][j]==check){ //check for vertical bingos
+					bingo = true;
+				}
+				else if(array[i][0]==check&&array[i][1]==check&&array[i][2]==check&&array[i][3]==check&&array[i][4]==check){//check for horizontal bingos
+					bingo = true;
+				}
+				else if(array[0][0]==check&&array[1][1]==check&&array[2][2]==check&&array[3][3]==check&&array[4][4]==check){ //check for S.E diagonal bingos
+					bingo =true;
+				}
+				else if(array[0][4]==check&&array[1][3]==check&&array[2][2]==check&&array[3][1]==check&&array[4][0]==check){ //check for S.W diagonal bingos
+					bingo= true;
+				}
+				else // if no bingos
+					bingo = false;
+			}
+		}   
 	}
 }
