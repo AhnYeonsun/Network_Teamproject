@@ -21,9 +21,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class Quiz extends JFrame {
-	public boolean bingo;
+	public boolean bingo = false;
 	public int questionNum;
-
+	public String answer;
 
 	JPanel panel1 = new JPanel();
 	JPanel p = new JPanel();
@@ -36,7 +36,7 @@ public class Quiz extends JFrame {
 
 	JLabel timer = new JLabel("Timer : 30초");
 
-	JTextArea questionField = new JTextArea();
+	JTextArea questionField = new JTextArea(); //문제 화면에 띄움
 	JTextField answerField = new JTextField(40); // 답 입력
 	JButton answerButton = new JButton("Submit");
 
@@ -69,17 +69,14 @@ public class Quiz extends JFrame {
 		problemBorderPanel.setBorder(border1);
 
 		// 문제가 나오는 부분
-		questionField.setBounds(0, 0, 500, 215);
+		questionField.setBounds(0, 0, 500, 215); // 문제가 들어가는 panel
 		ProblemPanel.setLayout(null);
 		ProblemPanel.setBounds(20, 20, 500, 215);
 		ProblemPanel.setBackground(Color.WHITE); // 패널을 구분하기 위해 임시적으로 넣어놨음
 		ProblemPanel.add(questionField);
-		connectDatabase cD = new connectDatabase(questionNum);
+		connectDatabase cD = new connectDatabase(questionNum); // DB로부터 questionNumber에 맞는 문제,답을 저장
  
-		questionField.setText(cD.question);
-
-
-
+		questionField.setText(cD.question); // text field에 문제 띄움
 
 		// 타이머 부부분
 		timer.setFont(new Font("한컴 윤체 B", Font.PLAIN, 13));
@@ -108,8 +105,11 @@ public class Quiz extends JFrame {
 
 		//submit에 대한 이벤트기능 추가
 		answerButton.addActionListener(buttonlistner);
-
-
+		answer = answerField.getText();
+		if(answer.equalsIgnoreCase(cD.Answer)){
+			bingo = true;
+		}
+		
 		//총 패널을 추가해준다
 		problemBorderPanel.add(ProblemPanel);
 
