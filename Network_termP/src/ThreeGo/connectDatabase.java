@@ -5,6 +5,7 @@ import javax.net.ssl.SSLContext;
 import javax.*;
 
 public class connectDatabase {
+	public static int quesNum;
 	public static int id;
 	public static String question;
 	public static String answer;
@@ -34,7 +35,7 @@ public class connectDatabase {
 		try{
 			Connection con = makeConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT* FROM game");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM game" + "WHERE ID=" + quesNum);
 			
 			while(rs.next()){
 				id = rs.getInt("ID");
