@@ -9,7 +9,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -106,8 +106,15 @@ public class Quiz extends JFrame {
 		//submit에 대한 이벤트기능 추가
 		answerButton.addActionListener(buttonlistner);
 		answer = answerField.getText();
+		System.out.println(answer);
+		
 		if(answer.equalsIgnoreCase(cD.Answer)){
 			bingo = true;
+			JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{
+			bingo = false;
+			JOptionPane.showMessageDialog(null, "Wrong answer!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		//총 패널을 추가해준다
@@ -125,7 +132,6 @@ public class Quiz extends JFrame {
 		add(panel1);
 
 		revalidate();
-
+		
 	}
-
 }
