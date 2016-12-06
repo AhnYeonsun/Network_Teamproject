@@ -48,7 +48,7 @@ public class chatClient {
 		/*
 		 * //메시지 입력창, 메시지 출력창, 귓속말 버튼 창 frame 할당 textField.setEditable(false);
 		 * messageArea.setEditable(false);
-		 * 
+		 *  
 		 * //메시지 입력창 하단 frame.getContentPane().add(textField, "South"); //메시지
 		 * 출력창 중간 frame.getContentPane().add(new JScrollPane(messageArea),
 		 * "Center"); //귓속말 버튼 오른쪽 frame.getContentPane().add(whisper, "East");
