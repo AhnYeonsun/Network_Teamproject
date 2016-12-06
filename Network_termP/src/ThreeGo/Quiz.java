@@ -24,6 +24,8 @@ public class Quiz extends JFrame {
 	public boolean bingo = false;
 	public int questionNum;
 	public String answer;
+	
+	private chatClient myClnt; 
 
 	JPanel panel1 = new JPanel();
 	JPanel p = new JPanel();
@@ -40,9 +42,10 @@ public class Quiz extends JFrame {
 	JTextField answerField = new JTextField(40); // 답 입력
 	JButton answerButton = new JButton("Submit");
 
-	public Quiz(int qNum) {
+	public Quiz(chatClient myClnt, int qNum, int[] board) {
 		// 창 설정 (Ready창)
 		super("Quiz");
+		this.myClnt = myClnt;
 		questionNum = qNum;
 		TitledBorder border1 = new TitledBorder(new LineBorder(Color.black, 1), " < 문제 "+ questionNum +" > ");
 		TitledBorder border2 = new TitledBorder(new LineBorder(Color.black, 1), " < 답 제출 > ");
@@ -98,25 +101,27 @@ public class Quiz extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				//submit에 대한 이벤트기능 추가
+				
+				answer = answerField.getText(); //submit한 내용이 안들어감...
+				answerField.setText("");
+				//System.out.println(answer);
+				
+				if(answer.equalsIgnoreCase(cD.Answer)){
+					bingo = true;
+					JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
+					myClnt.setBoard(questionNum, 1);
+				}
+				else{
+					bingo = false;
+					JOptionPane.showMessageDialog(null, "Wrong answer!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
+				}
+				isBingo mybingo = new isBingo(board);
 				setVisible(false);
 			}
-
 		};
-
-		//submit에 대한 이벤트기능 추가
 		answerButton.addActionListener(buttonlistner);
-		answer = answerField.getText(); //submit한 내용이 안들어감...
-		answerField.setText("");
-		//System.out.println(answer);
 		
-		if(answer.equalsIgnoreCase(cD.Answer)){
-			bingo = true;
-			JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
-		}
-		else{
-			bingo = false;
-			JOptionPane.showMessageDialog(null, "Wrong answer!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
-		}
 		
 		//총 패널을 추가해준다
 		problemBorderPanel.add(ProblemPanel);
