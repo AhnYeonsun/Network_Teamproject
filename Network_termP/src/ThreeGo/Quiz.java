@@ -1,14 +1,10 @@
 package ThreeGo;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -24,6 +19,7 @@ public class Quiz extends JFrame {
 	public boolean bingo = false;
 	public int questionNum;
 	public String answer;
+	public int Index;
 	
 	private chatClient myClnt; 
 
@@ -42,11 +38,13 @@ public class Quiz extends JFrame {
 	JTextField answerField = new JTextField(40); // 답 입력
 	JButton answerButton = new JButton("Submit");
 
-	public Quiz(chatClient myClnt, int qNum, int[] board) {
+	public Quiz(chatClient myClnt, int qNum, int[] board, int index) {
 		// 창 설정 (Ready창)
 		super("Quiz");
 		this.myClnt = myClnt;
 		questionNum = qNum;
+		Index = index;
+		
 		TitledBorder border1 = new TitledBorder(new LineBorder(Color.black, 1), " < 문제 "+ questionNum +" > ");
 		TitledBorder border2 = new TitledBorder(new LineBorder(Color.black, 1), " < 답 제출 > ");
 
@@ -103,15 +101,14 @@ public class Quiz extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//submit에 대한 이벤트기능 추가
-				
-				answer = answerField.getText(); //submit한 내용이 안들어감...
+				answer = answerField.getText();
 				answerField.setText("");
 				//System.out.println(answer);
 				
 				if(answer.equalsIgnoreCase(cD.Answer)){
 					bingo = true;
 					JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
-					myClnt.setBoard(questionNum, 1);
+					myClnt.setBoard(Index, 1);
 				}
 				else{
 					bingo = false;
@@ -123,7 +120,6 @@ public class Quiz extends JFrame {
 		};
 		answerButton.addActionListener(buttonlistner);
 		
-		
 		//총 패널을 추가해준다
 		problemBorderPanel.add(ProblemPanel);
 
@@ -133,7 +129,6 @@ public class Quiz extends JFrame {
 		p.add(problemBorderPanel);
 		p.add(timer);
 		p.add(answerBorderPanel);
-
 
 		panel1.add(p);
 		add(panel1);
