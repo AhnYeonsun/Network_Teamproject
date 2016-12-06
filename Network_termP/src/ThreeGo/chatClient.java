@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class chatClient {
+public class chatClient implements Runnable {
 
 	// 받을 데이터
 	BufferedReader in;
@@ -201,10 +201,11 @@ public class chatClient {
 	}
 
 	// start()시 돌아가는 run 메소드
-	private void run() throws IOException {
+	public void run() {
 
 		// getServerAddress를 통해서 입력된 ip address를 serverAddress에 넣어준다.
 		String serverAddress = getServerAddress();
+		try {
 		socket = new Socket(serverAddress, 9001);
 		// 가져올 메시지와, 보낼 메시지 (in, out)
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -239,6 +240,13 @@ public class chatClient {
 			else if (line.startsWith("Logout")) {
 				messageArea.append("<< " + line.substring(6) + " Logout >> \n");
 			}
+		}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
