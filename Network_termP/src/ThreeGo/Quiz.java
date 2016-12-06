@@ -73,6 +73,7 @@ public class Quiz extends JFrame {
 
 		// 문제가 나오는 부분
 		questionField.setBounds(0, 0, 500, 215); // 문제가 들어가는 panel
+		questionField.setEditable(false);
 		ProblemPanel.setLayout(null);
 		ProblemPanel.setBounds(20, 20, 500, 215);
 		ProblemPanel.setBackground(Color.WHITE); // 패널을 구분하기 위해 임시적으로 넣어놨음
