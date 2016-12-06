@@ -242,7 +242,7 @@ public class chatClient {
 	public void setBoard(int i, int value) {
 		board[i] = value;
 		System.out.println(board[i]);
-	}
+	} 
 	// JFrame 종료 버튼 있는 Frame을 사용한다. 종료버튼을 누를 때까지 계속해서 창 활성화
 	public static void main(String[] args) throws Exception {
 		chatClient client = new chatClient();
