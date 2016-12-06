@@ -8,6 +8,8 @@ import java.net.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +27,8 @@ public class chatClient {
 	 * 40); // 귓속말 버튼 이름 JButton whisper = new JButton("whisper"); // 받는 사람(귓속말
 	 * 모드에 사용) String receiver = "";
 	 */
+	
+	int[] number = new int[26]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
 	JFrame frame = new JFrame("Game");
 	JPanel Panel;
 	JPanel borderPanel1, borderPanel2;
@@ -79,15 +83,37 @@ public class chatClient {
 		BingoPanel1.setBounds(20, 20, 430, 430);
 		// BingoPanel1.setBackground(Color.white);
 
+		 //랜덤 숫자
+	      
+	      Random random = new Random();
+	      
+	      for(int i = 1; i < 26; i++)
+	      {
+	         number[i] = i;
+	      }
+	      
+	      int temp;
+	      int x, y;
+	      
+	      // 랜덤 숫자 swap 한다.
+	      for(int i = 1; i < 26; i++)
+	      {
+	         x = random.nextInt(24)+1;
+	         y = random.nextInt(24)+1;
+	         
+	         temp = number[x];
+	         number[x] = number[y];
+	         number[y] = temp;   
+	      }
 
 		// 빙고판(버튼 형식)
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(j + i * 5 + 1));
+				Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(number[j + i * 5 + 1]));
 				Bingo_B[j + i * 5 + 1].setLayout(null);
 				Bingo_B[j + i * 5 + 1].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5 + 1]);
-				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(j + i * 5 + 1));
+				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1]));
 				
 			}
 		}
