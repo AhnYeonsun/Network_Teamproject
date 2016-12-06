@@ -42,9 +42,9 @@ public class chatClient {
 	JButton btn1 = new JButton("귓속말");
 	String receiver = "";
 	private Socket socket;
-
+	public int[][] board = new int[5][5];
+	
 	public chatClient() {
-
 		/*
 		 * //메시지 입력창, 메시지 출력창, 귓속말 버튼 창 frame 할당 textField.setEditable(false);
 		 * messageArea.setEditable(false);
@@ -79,24 +79,7 @@ public class chatClient {
 		BingoPanel1.setBounds(20, 20, 430, 430);
 		// BingoPanel1.setBackground(Color.white);
 
-		// 빙고판 버튼을 클릭할시 이벤트 발생
-		/*ActionListener Buttonlistner = new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				System.out.println();
-				Quiz myquiz = new Quiz(qNum);
-				Timer t = new Timer(true);
-				TimerTask tk = new timeoutTask(myquiz);
-				t.schedule(tk, 3000);
-			}
-
-		};*/
-
-		//헤헤헤헤헤ㅔㅎ 주석이다 주석 나도 화장실가야겠다 온도니오면 화장실가야징 꺄ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ
-		//누구 오는데 넌줄알고 깜짝놀ㄹㅆ네 ㅎㅎㅎ 자고 일어나니깐 사람이 많아졌엉 ㅇㅅㅇ 사랑했지마나난난나나나
-		//왔다 흐흫흫흫ㅎㅎ 으컁ㅇㅇ양ㅇㅇ헿
 		// 빙고판(버튼 형식)
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -253,7 +236,7 @@ public class chatClient {
 			Quiz myquiz = new Quiz(page);
 			Timer t = new Timer(true);
 			TimerTask tk = new timeoutTask(myquiz);
-			t.schedule(tk, 3000);
+			t.schedule(tk, 30000);
 		}
 	}
 	// JFrame 종료 버튼 있는 Frame을 사용한다. 종료버튼을 누를 때까지 계속해서 창 활성화

@@ -6,7 +6,7 @@ public class connectDatabase {
 	public int quesNum;
 	public int id;
 	public String question;
-	public String answer;
+	public String Answer;
 	
 	public connectDatabase(int qNum){
 		quesNum = qNum;
@@ -21,16 +21,16 @@ public class connectDatabase {
 		
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver");
-			System.out.println("드라이버 검색 성공 !");
+			//System.out.println("드라이버 검색 성공 !");
 		}
 		catch(ClassNotFoundException e) {
-			System.out.println("드라이버 검색 실패 !");
+			//System.out.println("드라이버 검색 실패 !");
 		}
 		try {
 			con = DriverManager.getConnection(url, id, password);
-			System.out.println("My-SQL 접속 성공!!");
+			//System.out.println("My-SQL 접속 성공!!");
 		}catch(SQLException e) {
-			System.out.println("My-SQL 접속 실패");
+			//System.out.println("My-SQL 접속 실패");
 		}
 		return con;
 	}
@@ -43,7 +43,7 @@ public class connectDatabase {
 			while(rs.next()){
 				id = rs.getInt("ID");
 				question = rs.getString("QUESTION");
-				answer = rs.getString("ANSWER");
+				Answer = rs.getString("ANSWER");
 			}
 		}catch(SQLException e){
 			e.printStackTrace();

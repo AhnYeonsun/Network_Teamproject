@@ -105,8 +105,9 @@ public class Quiz extends JFrame {
 
 		//submit에 대한 이벤트기능 추가
 		answerButton.addActionListener(buttonlistner);
-		answer = answerField.getText();
-		System.out.println(answer);
+		answer = answerField.getText(); //submit한 내용이 안들어감...
+		answerField.setText("");
+		//System.out.println(answer);
 		
 		if(answer.equalsIgnoreCase(cD.Answer)){
 			bingo = true;

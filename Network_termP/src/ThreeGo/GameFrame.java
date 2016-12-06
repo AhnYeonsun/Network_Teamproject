@@ -24,7 +24,7 @@ import javax.swing.plaf.metal.MetalBorders.ToolBarBorder;
 
 public class GameFrame extends JFrame {
 
-
+	public int qNum;
 	JPanel Panel;
 	JPanel borderPanel1, borderPanel2;
 	JPanel BingoPanel1;
@@ -74,7 +74,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new Quiz();
+				new Quiz(qNum);
 			}
 
 		};
@@ -87,6 +87,7 @@ public class GameFrame extends JFrame {
 				Bingo_B[j + i * 5].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5]);
 				Bingo_B[j+i*5].addActionListener(Buttonlistner);
+				qNum = j+i*5;
 			}
 		}
 
