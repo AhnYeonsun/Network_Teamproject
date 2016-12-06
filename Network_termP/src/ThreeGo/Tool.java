@@ -7,10 +7,10 @@ import javax.swing.*;
 
 
 public class Tool {
-	public static void main(String[] args) {
-		new Login();
-		//new Ready();
-		//new GameFrame();
-		//new Quiz();
-	}
+   public static void main(String[] args) {
+      new Login().setVisible(true);
+      //new Ready();
+      //new GameFrame();
+      //new Quiz();
+   }
 }
