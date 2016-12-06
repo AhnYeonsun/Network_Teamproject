@@ -42,8 +42,8 @@ public class chatClient {
 	JButton btn1 = new JButton("귓속말");
 	String receiver = "";
 	private Socket socket;
-	public int[][] board = new int[5][5];
-	
+	public int[] board = new int[26];
+	private chatClient myClnt = this;
 	public chatClient() {
 		/*
 		 * //메시지 입력창, 메시지 출력창, 귓속말 버튼 창 frame 할당 textField.setEditable(false);
@@ -215,6 +215,7 @@ public class chatClient {
 			}
 		}
 	}
+	
 	class timeoutTask extends TimerTask {
 		Quiz tempquiz;
 		public timeoutTask(Quiz myquiz){
@@ -222,7 +223,6 @@ public class chatClient {
 		}
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			tempquiz.dispose();
 		}
 	}
@@ -233,11 +233,15 @@ public class chatClient {
 		}
 		public void actionPerformed(ActionEvent e){
 			System.out.println();
-			Quiz myquiz = new Quiz(page);
+			Quiz myquiz = new Quiz(myClnt, page, board);
 			Timer t = new Timer(true);
 			TimerTask tk = new timeoutTask(myquiz);
 			t.schedule(tk, 30000);
 		}
+	}
+	public void setBoard(int i, int value) {
+		board[i] = value;
+		System.out.println(board[i]);
 	}
 	// JFrame 종료 버튼 있는 Frame을 사용한다. 종료버튼을 누를 때까지 계속해서 창 활성화
 	public static void main(String[] args) throws Exception {
