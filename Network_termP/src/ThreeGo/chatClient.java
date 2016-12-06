@@ -27,8 +27,6 @@ public class chatClient {
 	 * 40); // 귓속말 버튼 이름 JButton whisper = new JButton("whisper"); // 받는 사람(귓속말
 	 * 모드에 사용) String receiver = "";
 	 */
-	
-	int[] number = new int[26]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
 	JFrame frame = new JFrame("Game");
 	JPanel Panel;
 	JPanel borderPanel1, borderPanel2;
@@ -48,6 +46,8 @@ public class chatClient {
 	private Socket socket;
 	public int[] board = new int[26];
 	private chatClient myClnt = this;
+	int[] number = new int[26]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
+	
 	public chatClient() {
 		/*
 		 * //메시지 입력창, 메시지 출력창, 귓속말 버튼 창 frame 할당 textField.setEditable(false);
@@ -83,28 +83,28 @@ public class chatClient {
 		BingoPanel1.setBounds(20, 20, 430, 430);
 		// BingoPanel1.setBackground(Color.white);
 
-		 //랜덤 숫자
-	      
-	      Random random = new Random();
-	      
-	      for(int i = 1; i < 26; i++)
-	      {
-	         number[i] = i;
-	      }
-	      
-	      int temp;
-	      int x, y;
-	      
-	      // 랜덤 숫자 swap 한다.
-	      for(int i = 1; i < 26; i++)
-	      {
-	         x = random.nextInt(24)+1;
-	         y = random.nextInt(24)+1;
-	         
-	         temp = number[x];
-	         number[x] = number[y];
-	         number[y] = temp;   
-	      }
+		//랜덤 숫자
+
+		Random random = new Random();
+
+		for(int i = 1; i < 26; i++)
+		{
+			number[i] = i;
+		}
+
+		int temp;
+		int x, y;
+
+		// 랜덤 숫자 swap 한다.
+		for(int i = 1; i < 26; i++)
+		{
+			x = random.nextInt(24)+1;
+			y = random.nextInt(24)+1;
+
+			temp = number[x];
+			number[x] = number[y];
+			number[y] = temp;   
+		}
 
 		// 빙고판(버튼 형식)
 		for (int i = 0; i < 5; i++) {
@@ -113,7 +113,7 @@ public class chatClient {
 				Bingo_B[j + i * 5 + 1].setLayout(null);
 				Bingo_B[j + i * 5 + 1].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5 + 1]);
-				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1]));
+				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1], j + i * 5 + 1));
 				
 			}
 		}
@@ -241,7 +241,7 @@ public class chatClient {
 			}
 		}
 	}
-	
+
 	class timeoutTask extends TimerTask {
 		Quiz tempquiz;
 		public timeoutTask(Quiz myquiz){
@@ -254,12 +254,14 @@ public class chatClient {
 	}
 	private class PageActionListener implements ActionListener{
 		private int page;
-		public PageActionListener(int page){
+		private int index;
+		public PageActionListener(int page, int index){
 			this.page = page;
+			this.index = index;
 		}
 		public void actionPerformed(ActionEvent e){
 			System.out.println();
-			Quiz myquiz = new Quiz(myClnt, page, board);
+			Quiz myquiz = new Quiz(myClnt, page, board, index);
 			Timer t = new Timer(true);
 			TimerTask tk = new timeoutTask(myquiz);
 			t.schedule(tk, 30000);
