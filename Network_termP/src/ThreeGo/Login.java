@@ -9,8 +9,11 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +27,7 @@ public class Login extends JFrame {
    JLabel login_label;
    TextField txtNAME;
    JButton ok, no;
+   JButton title;
    
    String name,ip;
       
@@ -39,14 +43,15 @@ public class Login extends JFrame {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    
       //panel 생성
-      panel = new JPanel();
-      panel.setLayout(null);
-      
-      //이미지 삽입
-      DrawPanel drawpanel = new DrawPanel();
-      drawpanel.setBounds(0,0,607,610);
+      //panel = new JPanel();
+      //panel.setLayout(null);
       
       /*
+      //이미지 삽입
+      DrawPanel drawpanel = new DrawPanel();
+      drawpanel.setBounds(0,0,607,475);
+      */
+      
       //로그인 대화명 라벨 생성 후 위치 표시
       login_label = new JLabel("ID");
       login_label.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
@@ -57,27 +62,54 @@ public class Login extends JFrame {
       txtNAME.setFont(new Font ("한컴 윤체 B",Font.BOLD,25));
       txtNAME.setBounds(175, 370, 290, 50);
       
-      */
-      ok = new JButton("Start");
+      
+      
+      //title
+      title = new JButton(new ImageIcon("Threego.png"));
+      title.setBorderPainted(false);
+      title.setContentAreaFilled(false);
+      title.setFocusPainted(false);
+      
+      title.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
+      title.setBackground(new Color(255,255,224));
+      title.setBounds(0, 0, 600, 200);
+      
+      
+      //ok = new JButton("Start");
+      ok = new JButton(new ImageIcon("STARTFUL.png"));
+      ok.setBorderPainted(false);
+      ok.setContentAreaFilled(false);
+      ok.setFocusPainted(false);
+      
       ok.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
       ok.setBackground(new Color(255,255,224));
-      ok.setBounds(0, 475, 300, 100);
+      ok.setBounds(150, 330, 300, 100);
 
-      no = new JButton("Exit");
+      no = new JButton(new ImageIcon("EXITFUL.png"));
+      no.setBorderPainted(false);
+      no.setContentAreaFilled(false);
+      no.setFocusPainted(false);
+      
       no.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
       no.setBackground(new Color(255,255,224));
-      no.setOpaque(true);
-      no.setBounds(300, 475, 300, 100);
+      no.setBounds(150, 445, 300, 100);
       
       //panel에 두개의 기능을 붙인다.
-      panel.add(drawpanel);
-      //panel.add(login_label);
-      //panel.add(txtNAME);
-      panel.add(ok);
-      panel.add(no);
+     // drawpanel.add(login_label);
+      //drawpanel.add(txtNAME);
+     // panel.add(drawpanel);
       
-      //이 붙인 panel을 frame에 붙여준다.
-      add(panel);
+      JLabel image = new JLabel(new ImageIcon("bingo.png"));
+
+      image.setBounds(0, 0,600, 500);
+
+      add(image);
+      image.add(title);
+      image.add(ok);
+      image.add(no);
+      
+      //이 붙인 panel을 fr0ame에 붙여준다.
+      //add(panel);
       
       ActionListener listner = new ActionListener() {
 
@@ -106,11 +138,6 @@ public class Login extends JFrame {
       
       
       revalidate();
-   }
-   
-   public String namegetter()
-   {
-      return name;
    }
 }
 
