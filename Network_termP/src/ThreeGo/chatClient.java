@@ -65,6 +65,8 @@ public class chatClient implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
+		
+		
 		// 바탕
 		Panel = new JPanel();
 		Panel.setLayout(null);
@@ -75,7 +77,7 @@ public class chatClient implements Runnable {
 
 		borderPanel1 = new JPanel();
 		borderPanel1.setLayout(null);
-		borderPanel1.setBounds(60, 20, 460, 460);
+		borderPanel1.setBounds(70, 55, 460, 460);
 		borderPanel1.setBorder(border1);
 
 		BingoPanel1 = new JPanel();
@@ -129,20 +131,20 @@ public class chatClient implements Runnable {
 
 		borderPanel2 = new JPanel();
 		borderPanel2.setLayout(null);
-		borderPanel2.setBounds(20, 500, 560, 450);
+		borderPanel2.setBounds(20, 600, 560, 350);
 		borderPanel2.setBorder(border2);
 
 		// 채팅방
 		textFieldPanel = new JPanel();
 		textFieldPanel.setLayout(null);
-		textFieldPanel.setBounds(10, 20, 540, 425);
-		// textFieldPanel.setBackground(Color.white);
+		textFieldPanel.setBounds(10, 20, 540, 325);
+		//textFieldPanel.setBackground(Color.white);
 		// borderPanel2.add(textFieldPanel);
 
 		messageArea.setEditable(false);
-		js.setBounds(0, 0, 540, 390);
-		textField.setBounds(0, 392, 445, 30);
-		btn1.setBounds(450, 392, 90, 30);
+		js.setBounds(0, 0, 540, 290);
+		textField.setBounds(0, 292, 445, 30);
+		btn1.setBounds(450, 292, 90, 30);
 
 		textFieldPanel.add(js);
 		textFieldPanel.add(textField);
@@ -153,10 +155,15 @@ public class chatClient implements Runnable {
 		// panel 종합
 
 		// js.setBounds(20, 500, 560, 275);
+		
+		JLabel image = new JLabel(new ImageIcon("game4.png"));
+	    image.setBounds(0, 0,600, 1300);
+	    image.add(borderPanel1);
+		image.add(borderPanel2);
+	    frame.add(image);
 
-		Panel.add(borderPanel1);
-		Panel.add(borderPanel2);
-		frame.add(Panel);
+		
+		//frame.add(Panel);
 
 		// 메시지 입력창에 입력할 때의 이벤트
 		textField.addActionListener(new ActionListener() {
