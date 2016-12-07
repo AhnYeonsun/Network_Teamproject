@@ -106,11 +106,14 @@ public class chatClient implements Runnable {
 			number[y] = temp;   
 		}
 
+		 String num;
 		// 빙고판(버튼 형식)
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(number[j + i * 5 + 1]));
+				num = "button1-" + number[j + i * 5 + 1] + ".jpg";
 				Bingo_B[j + i * 5 + 1].setLayout(null);
+				Bingo_B[j + i * 5 + 1].setIcon(new ImageIcon(num));
 				Bingo_B[j + i * 5 + 1].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5 + 1]);
 				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1], j + i * 5 + 1));
