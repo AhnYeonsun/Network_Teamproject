@@ -32,7 +32,7 @@ public class Quiz extends JFrame {
 	JPanel answerBorderPanel = new JPanel();
 	JPanel answerPanel = new JPanel();
 
-	JLabel timer = new JLabel("Timer : 30초");
+	JLabel timer = new JLabel("Timer : 50초");
 
 	JTextArea questionField = new JTextArea(); //문제 화면에 띄움
 	JTextField answerField = new JTextField(40); // 답 입력
@@ -108,7 +108,7 @@ public class Quiz extends JFrame {
 				if(answer.equalsIgnoreCase(cD.Answer)){
 					bingo = true;
 					JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
-					myClnt.setBoard(Index, 1);
+					myClnt.sendComplete(1, Index, questionNum);
 				}
 				else{
 					bingo = false;
@@ -136,4 +136,5 @@ public class Quiz extends JFrame {
 		revalidate();
 		
 	}
+
 }

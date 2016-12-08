@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 public class isBingo {
-
+	static boolean isWin = false;
 	static boolean[] f = new boolean[12];
-	static int cnt = 0;
+	int cnt;
 	
 	private void yesbingo(int i){
 		f[i] = true;
@@ -18,12 +18,12 @@ public class isBingo {
 			}
 		}
 		
-		if(cnt == 3){
+		if(cnt == 3 && isWin == false){
 			JOptionPane.showMessageDialog(null, "You win", "Bingocheck message",JOptionPane.INFORMATION_MESSAGE);
+			isWin = true;
 		}
 	}
 	public isBingo(int[] board){
-		
 
 		if(board[1]==1 && board[2]==1 && board[3]==1 && board[4]==1 && board[5]==1) //horizontal
 			yesbingo(0);

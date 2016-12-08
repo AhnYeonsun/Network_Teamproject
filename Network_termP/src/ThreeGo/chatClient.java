@@ -47,6 +47,8 @@ public class chatClient implements Runnable {
 	public int[] board = new int[26];
 	private chatClient myClnt = this;
 	int[] number = new int[26]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
+	public static int cnt = 0;
+	public int index;
 	
 	public chatClient() {
 		/*
@@ -110,6 +112,8 @@ public class chatClient implements Runnable {
 
 		 String num;
 		// 빙고판(버튼 형식)
+		Bingo_B[0] = new JButton();
+		Bingo_B[0].setText("-1");
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(number[j + i * 5 + 1]));
@@ -118,7 +122,8 @@ public class chatClient implements Runnable {
 				Bingo_B[j + i * 5 + 1].setIcon(new ImageIcon(num));
 				Bingo_B[j + i * 5 + 1].setBounds(j * 85, i * 85, 80, 80);
 				BingoPanel1.add(Bingo_B[j + i * 5 + 1]);
-				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1], j + i * 5 + 1));
+				index = j + i * 5 + 1;
+				Bingo_B[j + i * 5 + 1].addActionListener(new PageActionListener(number[j + i * 5 + 1], index));
 				
 			}
 		}
@@ -170,7 +175,7 @@ public class chatClient implements Runnable {
 
 			public void actionPerformed(ActionEvent e) {
 				// 메시지 입력창에 입력한 내용을 server에게 보낸다.
-				out.println(textField.getText());
+				out.println("MESSAGE " + textField.getText());
 				textField.setText("");
 			}
 		});
@@ -249,8 +254,16 @@ public class chatClient implements Runnable {
 			// 대화창에서 나갈때 유저의 이름을 출력해준다.
 			else if (line.startsWith("Logout")) {
 				messageArea.append("<< " + line.substring(6) + " Logout >> \n");
+			}else if (line.startsWith("CORRECT")){
+				System.out.println(line);
+				String correctNumStr = line.substring(8);
+				int correctNumInt = Integer.parseInt(correctNumStr);
+				setBoard(correctNumInt);
 			}
 		}
+		
+		
+		
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -275,20 +288,35 @@ public class chatClient implements Runnable {
 		private int index;
 		public PageActionListener(int page, int index){
 			this.page = page;
-			this.index = index;
+			this.index = index; 
 		}
 		public void actionPerformed(ActionEvent e){
-			System.out.println();
 			Quiz myquiz = new Quiz(myClnt, page, board, index);
 			Timer t = new Timer(true);
 			TimerTask tk = new timeoutTask(myquiz);
-			t.schedule(tk, 30000);
+			t.schedule(tk, 50000);
 		}
 	}
-	public void setBoard(int i, int value) {
-		board[i] = value;
-		System.out.println(board[i]);
-	} 
+	public void sendComplete(int value, int index, int qNum){
+		board[index] = value;
+		out.println("CORRECT "+qNum);
+	}
+	public void setBoard(int qNum) {
+		int idx = 0;
+		for (JButton tmpBtn : Bingo_B){
+			String tmpNum = tmpBtn.getText();
+			tmpNum = tmpNum.trim();
+			if(tmpNum.equals(qNum+"".trim())){
+				tmpBtn.setDisabledIcon(new ImageIcon("button.jpg"));
+				tmpBtn.setEnabled(false);
+				board[idx] = 1;
+				break;
+			}
+			idx++;
+		}
+		isBingo bgc = new isBingo(board);
+	}
+
 	// JFrame 종료 버튼 있는 Frame을 사용한다. 종료버튼을 누를 때까지 계속해서 창 활성화
 	public static void main(String[] args) throws Exception {
 		chatClient client = new chatClient();
