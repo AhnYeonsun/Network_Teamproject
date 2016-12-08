@@ -11,7 +11,7 @@ public class chatServer {
 
 	// 이름을 저장할 공간을 arrayList로 새롭게 선언
 	private static ArrayList<String> names = new ArrayList<String>();
-
+ 
 	// 모든 사용자들에게 출력하기위해서 사용하는 arrayList 새롭게 선언
 	private static ArrayList<PrintWriter> writers = new ArrayList<PrintWriter>();
 
@@ -133,13 +133,10 @@ public class chatServer {
 								writer.println("MESSAGE " + name + ": " + input.substring(8));
 							}
 						}else if (input.startsWith("CORRECT")){
-							//CORRECT 3
 							String correctNumStr = input.substring(8);
-							int correctNumInt = Integer.parseInt(correctNumStr);
 							
 							for (PrintWriter writer : writers) {
-								
-								writer.println("CORRECT " + correctNumInt);
+								writer.println("CORRECT " + correctNumStr);
 							}
 						}
 					}
