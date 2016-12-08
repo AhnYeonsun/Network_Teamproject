@@ -88,7 +88,7 @@ public class chatClient implements Runnable {
 
       for(int i = 1; i < 33; i++)
       {
-         number[i] = i + 1;
+         number[i] = i;
       }
 
       int temp;
