@@ -1,13 +1,20 @@
 package ThreeGo;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 public class isBingo {
    static boolean isWin = false;
    static boolean[] f = new boolean[12];
    int cnt;
+   Clip clip;
    
    private void yesbingo(int i){
       f[i] = true;
@@ -20,11 +27,25 @@ public class isBingo {
       
       //3 bingo일 경우 이겼다고 메시지가 뜬다.
       if(cnt == 3 && isWin == false){
+         Sound("ppap.wav", false);
          JOptionPane.showMessageDialog(null, "You win", "Bingocheck message",JOptionPane.INFORMATION_MESSAGE);
          isWin = true;
       }
    }
    
+   private void Sound(String file, boolean Loop) {
+         try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            clip.start();
+            if (Loop)
+               clip.loop(-1);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+
    //각 대각선과 가로 세로 를 세어서 빙고의 수를 세어준다.
    public isBingo(int[] board){
 

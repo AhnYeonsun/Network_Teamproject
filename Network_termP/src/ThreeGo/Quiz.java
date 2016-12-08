@@ -5,7 +5,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+
 import javax.swing.JOptionPane;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,6 +43,7 @@ public class Quiz extends JFrame {
    JTextArea questionField = new JTextArea(); //문제 화면에 띄움
    JTextField answerField = new JTextField(40); // 답 입력
    JButton answerButton = new JButton("Submit");
+   Clip clip; //오디오
 
    public Quiz(chatClient myClnt, int qNum, int[] board, int index) {
       // 창 설정 (Ready창)
@@ -74,6 +81,7 @@ public class Quiz extends JFrame {
       // 문제가 나오는 부분
       questionField.setBounds(0, 0, 500, 215); // 문제가 들어가는 panel
       questionField.setEditable(false);
+      questionField.setFont(new Font("한컴 윤체 B", Font.PLAIN, 20));
       ProblemPanel.setLayout(null);
       ProblemPanel.setBounds(20, 20, 500, 215);
       ProblemPanel.setBackground(Color.WHITE); // 패널을 구분하기 위해 임시적으로 넣어놨음
@@ -109,16 +117,31 @@ public class Quiz extends JFrame {
             
             if(answer.equalsIgnoreCase(cD.Answer)){
                bingo = true;
+               Sound("okay.wav", false);
                JOptionPane.showMessageDialog(null, "Correct!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
                myClnt.sendComplete(1, Index, questionNum);
             }
             else{
                bingo = false;
+               Sound("no.wav", false);
                JOptionPane.showMessageDialog(null, "Wrong answer!", "Answering check",JOptionPane.INFORMATION_MESSAGE);
             }
             isBingo mybingo = new isBingo(board);
             setVisible(false);
          }
+
+         private void Sound(String file, boolean Loop) {
+               try {
+                  AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+                  clip = AudioSystem.getClip();
+                  clip.open(ais);
+                  clip.start();
+                  if (Loop)
+                     clip.loop(-1);
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+            }
       };
       answerButton.addActionListener(buttonlistner);
       
@@ -136,7 +159,7 @@ public class Quiz extends JFrame {
       add(panel1);
 
       revalidate();
-      
+
    }
 
 }

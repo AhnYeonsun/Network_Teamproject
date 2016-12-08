@@ -17,7 +17,7 @@ public class connectDatabase {
    public static Connection makeConnection() {
       String url = "jdbc:mysql://127.0.0.1:3306/game";
       String id = "root";
-      String password = "1q2w3e4r!";
+      String password = "12345";
       Connection con = null;
       
       try {

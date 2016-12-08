@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -20,8 +24,11 @@ public class chatClient implements Runnable {
    // 보낼 데이터
    PrintWriter out;
    
+   //오디오
+   Clip clip;
+   
    //Game frame 구성변수
-   JFrame frame = new JFrame("Game");
+   JFrame frame = new JFrame("ThreeGo");
    JPanel Panel;
    JPanel borderPanel1, borderPanel2;
    JPanel BingoPanel1;
@@ -54,7 +61,10 @@ public class chatClient implements Runnable {
       frame.pack();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setVisible(true);
-
+      
+      //BGM
+      Sound("Client.wav", true);
+      
       // 바탕
       Panel = new JPanel();
       Panel.setLayout(null);
@@ -78,7 +88,7 @@ public class chatClient implements Runnable {
 
       for(int i = 1; i < 33; i++)
       {
-         number[i] = i;
+         number[i] = i + 1;
       }
 
       int temp;
@@ -101,7 +111,7 @@ public class chatClient implements Runnable {
       Bingo_B[0].setText("-1");
       for (int i = 0; i < 5; i++) {
          for (int j = 0; j < 5; j++) {
-            Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(number[j + i * 5 + 1]));
+            Bingo_B[j + i * 5 + 1] = new JButton(String.valueOf(number[j + i * 5 + 1]) );
             num = "button1-" + number[j + i * 5 + 1] + ".jpg";
             Bingo_B[j + i * 5 + 1].setLayout(null);
             Bingo_B[j + i * 5 + 1].setIcon(new ImageIcon(num));
@@ -273,6 +283,7 @@ public class chatClient implements Runnable {
          this.index = index; 
       }
       public void actionPerformed(ActionEvent e){
+         Sound("clickon.wav",false);
          Quiz myquiz = new Quiz(myClnt, page, board, index);
          Timer t = new Timer(true);
          TimerTask tk = new timeoutTask(myquiz);
@@ -302,7 +313,20 @@ public class chatClient implements Runnable {
       }
       isBingo bgc = new isBingo(board);
    }
-
+   
+   private void Sound(String file, boolean Loop) {
+         try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            clip.start();
+            if (Loop)
+               clip.loop(-1);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+   
    // JFrame 종료 버튼 있는 Frame을 사용한다. 종료버튼을 누를 때까지 계속해서 창 활성화
    public static void main(String[] args) throws Exception {
       chatClient client = new chatClient();

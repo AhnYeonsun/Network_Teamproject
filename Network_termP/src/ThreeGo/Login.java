@@ -11,8 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,14 +36,18 @@ public class Login extends JFrame {
    JButton title;
    
    String name,ip;
+   Clip clip;
       
    public Login()
    {
       //창 설정 (로그인이 제목 표시줄)
-      super("Login");
+      super("ThreeGo");
       setPreferredSize(new Dimension(600+7,600+10));
       setResizable(false); 
       
+      //BGM
+      Sound("START.wav",true);
+     
       //창의 위치 와 x누를 경우 꺼진다.
       setLocation(651, 100);
       pack();
@@ -97,6 +107,8 @@ public class Login extends JFrame {
             chatClient a = new chatClient();
             new Thread(a).start();
             setVisible(false);
+            clip.stop();
+            
             
          }
 
@@ -108,4 +120,17 @@ public class Login extends JFrame {
       
       revalidate();
    }
+
+   private void Sound(String file, boolean Loop) {
+         try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            clip.start();
+            if (Loop)
+               clip.loop(-1);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
 }
