@@ -32,7 +32,7 @@ public class chatClient implements Runnable {
    JPanel Panel;
    JPanel borderPanel1, borderPanel2;
    JPanel BingoPanel1;
-   JButton[] Bingo_B = new JButton[33];
+   JButton[] Bingo_B = new JButton[26];
    TitledBorder border1 = new TitledBorder(new LineBorder(Color.black, 1), " 빙고게임 판 ");
    TitledBorder border2 = new TitledBorder(new LineBorder(Color.black, 1), " 채팅 방 ");
 
@@ -46,9 +46,9 @@ public class chatClient implements Runnable {
    JButton btn1 = new JButton("귓속말");
    String receiver = "";
    private Socket socket;
-   public int[] board = new int[33];
+   public int[] board = new int[26];
    private chatClient myClnt = this;
-   int[] number = new int[33]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
+   int[] number = new int[26]; // 빙고판의 랜덤 숫자를 부여하기 위한 array
    public static int cnt = 0;
    public int index;
    
@@ -86,7 +86,7 @@ public class chatClient implements Runnable {
       //랜덤 숫자
       Random random = new Random();
 
-      for(int i = 1; i < 33; i++)
+      for(int i = 1; i < 26; i++)
       {
          number[i] = i;
       }
@@ -95,10 +95,10 @@ public class chatClient implements Runnable {
       int x, y;
 
       // 랜덤 숫자 swap 한다.
-      for(int i = 1; i < 33; i++)
+      for(int i = 1; i < 26; i++)
       {
-         x = random.nextInt(32)+1;
-         y = random.nextInt(32)+1;
+         x = random.nextInt(24)+1;
+         y = random.nextInt(24)+1;
 
          temp = number[x];
          number[x] = number[y];
