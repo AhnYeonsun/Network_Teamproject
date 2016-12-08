@@ -37,34 +37,13 @@ public class Login extends JFrame {
       super("Login");
       setPreferredSize(new Dimension(600+7,600+10));
       setResizable(false); 
+      
       //창의 위치 와 x누를 경우 꺼진다.
       setLocation(651, 100);
       pack();
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   
-      //panel 생성
-      //panel = new JPanel();
-      //panel.setLayout(null);
       
-      /*
-      //이미지 삽입
-      DrawPanel drawpanel = new DrawPanel();
-      drawpanel.setBounds(0,0,607,475);
-      */
-      
-      //로그인 대화명 라벨 생성 후 위치 표시
-      login_label = new JLabel("ID");
-      login_label.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
-      login_label.setBounds(125,370,50,50);
-      
-      //대화명 입력할 TXT창 삽입 및 위치 표시
-      txtNAME = new TextField(20); // 대화명 입력할 txt 창
-      txtNAME.setFont(new Font ("한컴 윤체 B",Font.BOLD,25));
-      txtNAME.setBounds(175, 370, 290, 50);
-      
-      
-      
-      //title
+      //title의 제목 설정
       title = new JButton(new ImageIcon("Threego.png"));
       title.setBorderPainted(false);
       title.setContentAreaFilled(false);
@@ -75,42 +54,32 @@ public class Login extends JFrame {
       title.setBounds(0, 0, 600, 200);
       
       
-      //ok = new JButton("Start");
+      //START버튼
       ok = new JButton(new ImageIcon("STARTFUL.png"));
       ok.setBorderPainted(false);
       ok.setContentAreaFilled(false);
       ok.setFocusPainted(false);
-      
-      ok.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
-      ok.setBackground(new Color(255,255,224));
       ok.setBounds(150, 330, 300, 100);
 
+      //EXIT버튼
       no = new JButton(new ImageIcon("EXITFUL.png"));
       no.setBorderPainted(false);
       no.setContentAreaFilled(false);
       no.setFocusPainted(false);
-      
-      no.setFont(new Font ("한컴 윤체 B",Font.PLAIN, 25));
-      no.setBackground(new Color(255,255,224));
       no.setBounds(150, 445, 300, 100);
       
-      //panel에 두개의 기능을 붙인다.
-     // drawpanel.add(login_label);
-      //drawpanel.add(txtNAME);
-     // panel.add(drawpanel);
-      
+      //Login의 백그라운드에 bingo 파일을 적어준다. 
       JLabel image = new JLabel(new ImageIcon("bingo.png"));
-
       image.setBounds(0, 0,600, 500);
-
+      
+      //백그라운드에 제목과 버튼을 넣어준다. 
       add(image);
       image.add(title);
       image.add(ok);
       image.add(no);
       
-      //이 붙인 panel을 fr0ame에 붙여준다.
-      //add(panel);
-      
+      //각 버튼의 이벤트 생성
+      //나가기
       ActionListener listner = new ActionListener() {
 
          @Override
@@ -120,6 +89,7 @@ public class Login extends JFrame {
 
       };
 
+      //Game client의 실행
       ActionListener listner2 = new ActionListener() {
 
          @Override
@@ -132,22 +102,10 @@ public class Login extends JFrame {
 
       };
       
-
+      //이벤트 추가
       no.addActionListener(listner);
       ok.addActionListener(listner2);
       
-      
       revalidate();
    }
-}
-
-//이미지 삽입하는 부분
-class DrawPanel extends JPanel
-{
-   public void paint(Graphics g){
-      super.paint(g);
-      Image img = Toolkit.getDefaultToolkit().getImage("bingo2.jpg");
-      g.drawImage(img, 0, 0, this);
-   }
-      
 }
