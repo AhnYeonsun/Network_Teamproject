@@ -74,7 +74,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new Quiz(qNum);
+				//new Quiz(qNum);
 			}
 
 		};
